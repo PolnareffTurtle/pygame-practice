@@ -46,6 +46,8 @@ while True:
     screen.blit(goomba,goomba_rect)
     screen.blit(mario, mario_rect)
 
+    pygame.draw.rect(screen,'blue',pygame.Rect(600,300,300,600))
+
 
     pygame.display.update()
     clock.tick(60)
