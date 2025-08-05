@@ -68,26 +68,11 @@ while True:
     screen.blit(goomba_text,(400,400))
     screen.blit(mouse_text,(400,450))
     screen.blit(floor,floor_rect)
-    pygame.draw.rect(screen,'blue',floor_rect,width=1)
     screen.blit(mario,mario_rect)
-    pygame.draw.rect(screen,'blue',mario_rect,1)
     screen.blit(goomba,goomba_rect)
-    pygame.draw.rect(screen,'blue',goomba_rect,1)
-    """x,y = pygame.mouse.get_pos()
-    pygame.draw.line(screen,'yellow',(0,0),(x,y),30)
-    pygame.draw.circle(screen,(200,20,20,100),(screen.get_width()//2,screen.get_height()//2),abs(screen.get_width()//2-x))
-    pygame.draw.ellipse(screen,'brown',goomba_text.get_rect())"""
-
 
 
     mouse_pos = pygame.mouse.get_pos()
-
-    if mario_rect.colliderect(goomba_rect):
-        goomba_collisions+=1
-        print('goomba collided')
-    if mario_rect.collidepoint(mouse_pos):
-        mouse_collisions+=1
-        print('mouse collided')
 
 
     clock.tick(60)
