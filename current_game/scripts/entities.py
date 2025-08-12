@@ -7,12 +7,15 @@ BASE_PATH = 'current_game/graphics/'
 class Player:
     def __init__(self,game):
         self.game = game
-        self.image = pygame.image.load(BASE_PATH + 'Player/walk/player_walk_1.png').convert_alpha()
-        self.image = pygame.transform.scale_by(self.image,2)
-        self.rect = self.image.get_rect(bottomleft = (0,self.game.floor_rect.top))
+        self.animation = self.game.assets['player_walk'].copy()
+        # self.image = pygame.image.load(BASE_PATH + 'Player/walk/player_walk_1.png').convert_alpha()
+        # self.image = pygame.transform.scale_by(self.image,2)
+        self.rect = self.animation.img().get_rect(bottomleft = (0,self.game.floor_rect.top))
         self.y_velocity = 0
 
     def update(self,x_movement):
+        self.animation.update()
+
     # first move player horizontally to check for collisions + points
         self.rect.x += 10*x_movement
         for enemy in self.game.enemy_list:
@@ -37,7 +40,7 @@ class Player:
                 self.rect.right = self.game.screen.get_width()
 
     def render(self,surf):
-        surf.blit(self.image,self.rect)
+        surf.blit(self.animation.img(),self.rect)
 
     def jump(self):
         if self.y_velocity == 0:
@@ -46,15 +49,17 @@ class Player:
 class Enemy:
     def __init__(self,game):
         self.game = game
-        self.image = pygame.image.load(BASE_PATH + 'snail/snail1.png').convert_alpha()
-        self.image = pygame.transform.scale_by(self.image,2)
-        self.rect = self.image.get_rect()
+        self.animation = self.game.assets['enemy_walk'].copy()
+        # self.image = pygame.image.load(BASE_PATH + 'snail/snail1.png').convert_alpha()
+        # self.image = pygame.transform.scale_by(self.image,2)
+        self.rect = self.animation.img().get_rect()
         self.rect.bottomleft = (self.game.screen.get_width()+randint(0,100),self.game.floor_rect.top)
 
     def update(self):
+        self.animation.update()
         self.rect.x -= 5
         if self.rect.right < 0:
             return True     # remove all the enemies in game.enemy_list that return true
     
     def render(self,surf):
-        surf.blit(self.image,self.rect)
+        surf.blit(self.animation.img(),self.rect)
